@@ -35,6 +35,7 @@
   "kubernetes": [
     "aws.yaml",
     "azure.yaml",
+    "gcp.yaml",
     "openstack.yaml"
   ],
   "infoblox-example": ["example-infoblox-blueprint.yaml"],
@@ -64,5 +65,11 @@
   ],
   "commercial-vnf/service": [
     "azure_service.yaml"
+  ],
+  "prometheus": [
+    "aws.yaml",
+    "azure.yaml",
+    "gcp.yaml",
+    "openstack.yaml"
   ]
 }
