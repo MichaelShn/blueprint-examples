@@ -6,14 +6,14 @@ if __name__ == '__main__':
 
     mariadb_props = ctx.source.instance.runtime_properties
     cluster_props = ctx.target.instance.runtime_properties
-
-    if 'cluster_members' not in cluster_props:
-        cluster_props['cluster_members'] = []
+    ctx.logger.info('MariaDB Props: {0}'.format(mariadb_props))
+    ctx.logger.info('Cluster Props: {0}'.format(cluster_props))
 
     groups = mariadb_props.get(
         'sources', {}).get('all', {}).get('children', {})
 
-    ctx.logger.info('Cluster groups: {0}'.format(groups))
+    if 'cluster_members' not in cluster_props:
+        cluster_props['cluster_members'] = []
 
     for group_name, group in groups.items():
         if group_name == 'galera_cluster':
@@ -25,5 +25,7 @@ if __name__ == '__main__':
                         'address': host['ansible_host']
                     }
                 )
+    ctx.target.instance.runtime_properties['cluster_members'] = \
+        cluster_props['cluster_members']
 
     ctx.logger.info('Finished gathering cluster data.')
